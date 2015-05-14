@@ -15,7 +15,6 @@ public class MaxHeap {
         for (kk = Arr.length -1; kk >= 0; kk--) {
             heapM(Arr, kk);
             }
-
         for (int krk = 0; krk < Arr.length; krk++) {
             System.out.println(Arr[krk]);
         }
@@ -28,6 +27,17 @@ public class MaxHeap {
         	System.out.println("(2) Fixed integer values 1-100");
         	System.out.println("Enter choice:");
         	user = kb.nextInt();
+        	switch(user) {
+        	case 1:
+        		
+        		break;
+        	case 2:
+        		
+        		break;
+        	default:
+        		System.out.println("Please put in valid response.");
+        		break;
+        	}
     	}
     	
     }
@@ -42,12 +52,12 @@ public class MaxHeap {
         } else {
             largest = i;
         }
-
         if (((right < Arr.length) && (Arr[right] > Arr[largest]))) {
             largest = right;
         }
         if (largest != i) {
             swap(i, largest);
+            counter ++;
             heapM(Arr, largest);
         }
     }
@@ -56,6 +66,6 @@ public class MaxHeap {
         int t = Arr[i];
         Arr[i] = Arr[largest];
         Arr[largest] = t;
-
+        
     }
 }
