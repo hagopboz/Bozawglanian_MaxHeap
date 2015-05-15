@@ -1,71 +1,102 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class MaxHeap {
 
-    public static int[] Arr;
-    public static int counter = 0;
-    static Scanner kb = new Scanner(System.in);
-
     public static void main(String[] args) {
     	
+    	Scanner kb = new Scanner(System.in);
     	int choice = 0;
     	int user;
-    	
-        int kk;
-        for (kk = Arr.length -1; kk >= 0; kk--) {
-            heapM(Arr, kk);
-            }
-        for (int krk = 0; krk < Arr.length; krk++) {
-            System.out.println(Arr[krk]);
-        }
+		HeapNode bSequential = new HeapNode();
+		HeapNode bOptimal = new HeapNode();
+		int count=0,sumSequential=0, sumOptimal=0;
     	
     	while (choice < 2) {
-        	System.out.println("===========================================================================");
-        	System.out.println("/n/n/n");
-        	System.out.println("Please select how to test the program:");
+        	System.out.println("===========================================================================\n");
+        	System.out.println("\nPlease select how to test the program:");
         	System.out.println("(1) 20 sets of 100 randomly generated integers");
         	System.out.println("(2) Fixed integer values 1-100");
-        	System.out.println("Enter choice:");
+        	System.out.print("Enter choice:");
         	user = kb.nextInt();
         	switch(user) {
         	case 1:
-        		
-        		break;
+				for(int i = 0; i < 20; i++) {
+					randInsertSequential(bSequential);
+					sumSequential += bSequential.getSwapping();
+					randInsertOptimal(bOptimal);
+					sumOptimal += bOptimal.getSwapping();
+					bSequential = new HeapNode();
+					bOptimal = new HeapNode();
+				}
+				System.out.println("Average swaps for series of insertions: " + Avg(sumSequential,20));
+				System.out.println("Average swaps for optimal method: " + Avg(sumOptimal,20));
+				break;
         	case 2:
-        		
+        		fixInsertSequential(bSequential);
+        		fixInsertOptimal(bOptimal);
+				System.out.print("Heap built using series of insertions: ");
+				printTen(bSequential);
+				printSwap(bSequential);
+				removeTen(bSequential);
+				System.out.print("Heap after 10 removals: ");
+				printTen(bSequential);	
+				System.out.print("\nHeap build using optimal method: ");
+				printTen(bOptimal);
+				printSwap(bOptimal);
+				removeTen(bOptimal);
+				System.out.print("Heap after 10 removals: ");
+				printTen(bOptimal);					
+				
         		break;
         	default:
         		System.out.println("Please put in valid response.");
         		break;
         	}
     	}
-    	
     }
 
-    public static void heapM(int[] Arr, int i) {
-
-        int largest;
-        int left = 2*i+1;
-        int right = 2*i + 2;
-        if (((left < Arr.length) && (Arr[left] > Arr[i]))) {
-            largest = left;
-        } else {
-            largest = i;
-        }
-        if (((right < Arr.length) && (Arr[right] > Arr[largest]))) {
-            largest = right;
-        }
-        if (largest != i) {
-            swap(i, largest);
-            counter ++;
-            heapM(Arr, largest);
-        }
-    }
-
-    private static void swap(int i, int largest) {
-        int t = Arr[i];
-        Arr[i] = Arr[largest];
-        Arr[largest] = t;
-        
-    }
+	public static void randInsertSequential(HeapNode s) {
+		Random gen = new Random();
+		do {
+			s.addSeqeuntial(gen.nextInt(100)+1);
+		} while(s.getSize() != 100);
+	}
+	
+	public static void randInsertOptimal(HeapNode o) {
+		Random gen = new Random();
+		do {
+			o.addOptimal(gen.nextInt(100) + 1);
+		} while(o.getSize() != 100);
+		o.optimalUp();
+	}
+	
+	public static void fixInsertSequential(HeapNode s) {
+		for(int i = 1 ; i < 101; i++){
+			s.addSeqeuntial(i);
+		}
+	}
+	
+	public static void fixInsertOptimal( HeapNode o) {
+		for(int i = 1; i < 101; i++)
+			o.addOptimal(i);
+		o.optimalUp();		
+	}
+	
+	public static void printTen( HeapNode a) {
+		a.printHeap();
+	}
+	
+	public static void removeTen( HeapNode a) {
+		for(int i = 0 ; i < 9; i++)
+			a.remove();
+	}
+	
+	public static void printSwap(HeapNode a) {
+		System.out.println("Number of Swaps: " + a.getSwapping());
+	}
+	
+	public static int Avg(int sum, int count) {
+		return sum/count;
+	}
 }
