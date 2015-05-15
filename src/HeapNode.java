@@ -49,8 +49,8 @@ public class HeapNode {
 	 * @return
 	 */
 	public boolean isDuplicate(int h) {
-		for(int i = 0 ; i < heap.length; i++) {
-			if(heap[i] == h) {
+		for(int i = 0; i < heap.length; i++) {
+			if(heap[i] == h){
 				return true;
 			}
 		}
@@ -98,7 +98,7 @@ public class HeapNode {
 				heap[size] = h;
 			} else {
 				heap[size] = h;
-			}		
+			}
 			size++;
 		}
 	}
@@ -108,7 +108,7 @@ public class HeapNode {
 	 */
 	public void optimalUp(){
 		int n = 0,tempSwapping = swapping;
-		while(tempSwapping != swapping) {
+		do {
 			tempSwapping = swapping;
 			for(int i = size; i > 0; i--) {
 				int x = (i-1)/2;
@@ -138,7 +138,7 @@ public class HeapNode {
 					i--;
 				}
 			}
-		}
+		} while(tempSwapping != swapping);
 	}
 	/**
 	 * Removes the the root number which is in the spot index(0), 
@@ -163,8 +163,9 @@ public class HeapNode {
 	 */
 	public void printHeap() {
 		for(int i=0; i<10 ; i++) {
-			System.out.print(heap[i] + " ");
+			System.out.print(heap[i] + ",");
 		}
+		System.out.print("...");
 		System.out.println();
 	}
 }

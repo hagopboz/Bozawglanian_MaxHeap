@@ -10,7 +10,7 @@ public class MaxHeap {
     	int user;
 		HeapNode bSequential = new HeapNode();
 		HeapNode bOptimal = new HeapNode();
-		int count=0,sumSequential=0, sumOptimal=0;
+		int count = 0,sumSequential = 0, sumOptimal = 0;
     	
     	while (choice < 2) {
         	System.out.println("===========================================================================\n");
@@ -26,6 +26,7 @@ public class MaxHeap {
 					sumSequential += bSequential.getSwapping();
 					randInsertOptimal(bOptimal);
 					sumOptimal += bOptimal.getSwapping();
+
 					bSequential = new HeapNode();
 					bOptimal = new HeapNode();
 				}
@@ -47,7 +48,7 @@ public class MaxHeap {
 				removeTen(bOptimal);
 				System.out.print("Heap after 10 removals: ");
 				printTen(bOptimal);					
-				
+				choice = 2;
         		break;
         	default:
         		System.out.println("Please put in valid response.");
@@ -77,23 +78,23 @@ public class MaxHeap {
 		}
 	}
 	
-	public static void fixInsertOptimal( HeapNode o) {
+	public static void fixInsertOptimal(HeapNode o) {
 		for(int i = 1; i < 101; i++)
 			o.addOptimal(i);
 		o.optimalUp();		
 	}
 	
-	public static void printTen( HeapNode a) {
-		a.printHeap();
+	public static void printTen(HeapNode h) {
+		h.printHeap();
 	}
 	
-	public static void removeTen( HeapNode a) {
+	public static void removeTen(HeapNode h) {
 		for(int i = 0 ; i < 9; i++)
-			a.remove();
+			h.remove();
 	}
 	
-	public static void printSwap(HeapNode a) {
-		System.out.println("Number of Swaps: " + a.getSwapping());
+	public static void printSwap(HeapNode h) {
+		System.out.println("Number of Swaps: " + h.getSwapping());
 	}
 	
 	public static int Avg(int sum, int count) {
